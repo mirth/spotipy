@@ -686,7 +686,7 @@ class Spotify(object):
 
             Parameters:
                 - limit - the number of entities to return
-        '''        
+        '''
         return self._get('me/player/recently-played', limit=limit)
 
     def current_user_saved_albums_add(self, albums=[]):
@@ -1054,3 +1054,14 @@ class Spotify(object):
 
     def _get_uri(self, type, id):
         return 'spotify:' + type + ":" + self._get_id(type, id)
+
+    def playlist(self, playlist_id):
+        """ Get full details of the playlist.
+
+            Parameters:
+                - playlist_id - the id of the playlist
+        """
+        plid = self._get_id('playlist', playlist_id)
+        return self._get("playlists/%s" % (plid),
+                         limit=None, offset=0, fields=None,
+                         market=None)
